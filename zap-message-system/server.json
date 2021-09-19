@@ -55,6 +55,13 @@
       "trigger": "abertura_conta",
       "timer": "02:30",
       "message": "*Parabéns*\n\nQue legal que você cadastrou seu número __(48) 9 9819-7709__!"
+    },
+    {
+      "id": 1631313726742,
+      "channel": "sms",
+      "trigger": "abertura_conta",
+      "timer": "5:30",
+      "message": "Teste Daniel"
     }
   ],
   "channels": [

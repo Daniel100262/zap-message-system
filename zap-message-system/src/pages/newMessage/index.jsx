@@ -17,12 +17,43 @@ const NewMessage = () => {
     const [trigger, setTrigger] = useState("");
     const [timer, setTimer] = useState("");
     const [message, setMessage] = useState("");
+    const [triggerOption, setTriggerOption] = useState([]);
+    const [channelOption, setChannelOption] = useState([]);
 
     const history = useHistory();
 
     const handleClickGoBack = () => {
         history.goBack();
     }
+
+    const handleGetChannels = async () => {
+        try {
+            const response = await api.get('/messages');
+            const msg = response.data;
+            const channelsList = msg.map(item => item.channel)
+            const channelsWithoutDuplicates = [...new Set(channelsList)];
+            setChannelOption(channelsWithoutDuplicates);
+        } catch (error) {
+            Swal.fire("Ocorreu um erro!", "Erro ao popular lista de gatilhos!");
+        }
+    }
+
+    const handleGetTriggers = async () => {
+        try {
+            const response = await api.get('/messages');
+            const msg = response.data;
+            const triggerList = msg.map(item => item.trigger)
+            const triggersWithoutDuplicates = [...new Set(triggerList)];
+            setTriggerOption(triggersWithoutDuplicates);
+        } catch (error) {
+            Swal.fire("Ocorreu um erro!", "Erro ao popular lista de gatilhos!");
+        }
+    }
+
+    useEffect(() => {
+        handleGetChannels();
+        handleGetTriggers();
+    }, [])
 
     const schema = yup.object().shape({
         channel: yup.string().required("Campo obrigatorio").min(5, "Selecione o canal!"),
@@ -33,8 +64,8 @@ const NewMessage = () => {
 
     const handleSubmit = async (event) => {
         try {
-            const isValid = schema.isValid({channel, trigger, timer, message});
-            if(isValid === false) {
+            const isValid = schema.isValid({ channel, trigger, timer, message });
+            if (isValid === false) {
                 Swal.fire("Verifique os campos!");
                 return;
             }
@@ -48,9 +79,9 @@ const NewMessage = () => {
             });
             console.log(response.data());
 
-            
 
-            
+
+
 
         } catch (error) {
             Swal.fire(`Aconteceu um erro!\n${error}`);
@@ -60,8 +91,8 @@ const NewMessage = () => {
             'Cadastrado!',
             'Usuário cadastrado com sucesso!',
             'success'
-          )
-        
+        )
+
     }
 
     return (
@@ -70,30 +101,19 @@ const NewMessage = () => {
             <Card className="CardNewMessage" sx={{ maxWidth: 545 }}></Card>
             <Button onClick={handleClickGoBack}>Voltar</Button>
             <form>
-            <Button onClick={handleSubmit}>Cadastrar</Button>
+                <Button onClick={handleSubmit}>Cadastrar</Button>
                 <CardContent>
-                    <Select
-                        value={channel}
-                        onChange={(event) => setChannel(event.target.value)}
-                        defaultValue={""}
-                        displayEmpty
-                    >
-                        <MenuItem value="">Selecione...</MenuItem>
-                        <MenuItem value={"sms"}>SMS</MenuItem>
-                        <MenuItem value={"whatsapp"}>WhatsApp</MenuItem>
-                        <MenuItem value={"email"}>E-mail</MenuItem>
+                    <Select value={trigger} onChange={(event) => setTrigger(event.target.value)} defaultValue={""} displayEmpty>
+                        <MenuItem value="">Todos</MenuItem>
+                        {triggerOption.map((row) =>
+                            <MenuItem value={row}>{row}</MenuItem>
+                        )}
                     </Select>
-                    <Select
-                        value={trigger}
-                        onChange={(event) => setTrigger(event.target.value)}
-                        defaultValue={""}
-                        displayEmpty
-                    >
-                        <MenuItem value="">Selecione...</MenuItem>
-                        <MenuItem value={"abertura_conta"}>Abertura de conta</MenuItem>
-                        <MenuItem value={"fez_pix"}>Fez PIX</MenuItem>
-                        <MenuItem value={"criou_chave_pix"}>Criou chave PIX</MenuItem>
-                        <MenuItem value={"nova_chave_pix"}>Nova chave PIX</MenuItem>
+                    <Select value={channel} onChange={(event) => setChannel(event.target.value)} defaultValue={""} displayEmpty>
+                        <MenuItem value="">Todos</MenuItem>
+                        {channelOption.map((row) =>
+                            <MenuItem value={row}>{row}</MenuItem>
+                        )}
                     </Select>
 
                     <TextField value={timer} onChange={(event) => setTimer(event.target.value)} label="Tempo" variant="standard" /><br />
