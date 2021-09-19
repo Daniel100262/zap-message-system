@@ -1,0 +1,7 @@
+.TableCard {
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: column;
+    background-color: #F2F3F5;
+    align-items: center;
+}
