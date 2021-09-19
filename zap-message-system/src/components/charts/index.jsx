@@ -4,7 +4,7 @@ import CardContent from '@mui/material/CardContent';
 import Box from '@mui/material/Box';
 import './styles.css';
 
-const Graph = () => {
+const Charts = () => {
 
     const data = {
         labels: ['Zapelino', 'Oi', 'BRB', 'BRB Nação'],
@@ -30,15 +30,6 @@ const Graph = () => {
             }
         ]
     }
-
-    const bull = (
-        <Box
-          component="span"
-          sx={{ display: 'inline-block', mx: '2px', transform: 'scale(0.8)' }}
-        >
-          •
-        </Box>
-      );
 
     
 
@@ -71,4 +62,4 @@ const Graph = () => {
     );
 }
 
-export default Graph;
+export default Charts;

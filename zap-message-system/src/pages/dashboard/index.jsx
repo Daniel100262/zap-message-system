@@ -1,4 +1,4 @@
-import Graphs from '../../components/graph';
+import Charts from '../../components/charts';
 import './styles.css';
 
 const Dashboard = () => {
@@ -8,7 +8,7 @@ const Dashboard = () => {
             <div className="dashboardTitle">
                 <span>Contas abertas - BOT</span>
             </div>
-            <Graphs />
+            <Charts />
             
         </>
     )
