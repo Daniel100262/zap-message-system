@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { ToastContainer, toast } from 'react-toastify';
+import { useHistory } from "react-router-dom";
 import Table from '@mui/material/Table';
 import StyledTableRow from '../StyledTableRow';
 import StyledTableCell from '../StyledTableCell';
@@ -19,14 +19,14 @@ import TextField from '@mui/material/TextField';
 const DataTable = () => {
 
     const [data, setData] = useState([]);
-    const [message, setMessage] = useState("");
     const [timer, setTimer] = useState("");
     const [channel, setChannel] = useState("");
     const [trigger, setTrigger] = useState("");
 
-    const showMessage = (message) => (param) => {
+    const history = useHistory();
 
-        console.log("fui chamado!" + param.variant)
+    const handleClickNewMessage = () => {
+        history.push("/messages/new")
     }
 
     const handleSubmit = async (event) => {
@@ -84,7 +84,7 @@ const DataTable = () => {
                 
                 <Button onClick={handleSubmit}>Pesquisar</Button>
             </form>
-            <Button onClick={handleSubmit}>Nova Mensagem</Button>
+            <Button onClick={handleClickNewMessage}>Nova Mensagem</Button>
             <TableContainer sx={{ maxWidth: 700 }} component={Paper}>
                 <Table sx={{ minWidth: 500 }} aria-label="customized table">
                     <TableHead>
@@ -118,7 +118,6 @@ const DataTable = () => {
                 </Table>
 
             </TableContainer>
-            <ToastContainer />
         </div>
         
     );

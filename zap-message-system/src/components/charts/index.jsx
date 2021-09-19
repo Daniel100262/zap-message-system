@@ -1,7 +1,6 @@
 import { Bar, Line } from 'react-chartjs-2';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
-import Box from '@mui/material/Box';
 import './styles.css';
 
 const Charts = () => {

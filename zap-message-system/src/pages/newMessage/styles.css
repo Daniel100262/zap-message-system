@@ -1,0 +1,15 @@
+.CardNewMessage {
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: column;
+    background-color: #FF0000;
+    align-items: center;
+}
+
+.ContainerNewMessage {
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: column;
+    background-color: #CCC;
+    align-items: center;
+}
