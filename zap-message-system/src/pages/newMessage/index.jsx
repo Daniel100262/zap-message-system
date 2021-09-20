@@ -11,6 +11,13 @@ import { useHistory } from "react-router-dom";
 import * as yup from 'yup';
 import './styles.css';
 
+const schema = yup.object().shape({
+    channel: yup.string().required("Campo obrigatorio").min(5, "Selecione o canal!"),
+    trigger: yup.string().required("Campo obrigatorio").min(5, "Selecione o gatilho!"),
+    timer: yup.string().required("Campo obrigatorio").min(5, "Campo tempo é muito curto!"),
+    message: yup.string().required("Campo obrigatorio").min(5, "Digite uma mensagem!")
+});
+
 const NewMessage = () => {
 
     const [channel, setChannel] = useState("");
@@ -55,16 +62,11 @@ const NewMessage = () => {
         handleGetTriggers();
     }, [])
 
-    const schema = yup.object().shape({
-        channel: yup.string().required("Campo obrigatorio").min(5, "Selecione o canal!"),
-        trigger: yup.string().required("Campo obrigatorio").min(5, "Selecione o gatilho!"),
-        timer: yup.string().required("Campo obrigatorio").min(5, "Campo tempo é muito curto!"),
-        message: yup.string().required("Campo obrigatorio").min(5, "Digite uma mensagem!")
-    });
+    
 
     const handleSubmit = async (event) => {
         try {
-            const isValid = schema.isValid({ channel, trigger, timer, message });
+            const isValid = await schema.isValid({ channel, trigger, timer, message });
             if (isValid === false) {
                 Swal.fire("Verifique os campos!");
                 return;
@@ -106,13 +108,13 @@ const NewMessage = () => {
                     <Select value={trigger} onChange={(event) => setTrigger(event.target.value)} defaultValue={""} displayEmpty>
                         <MenuItem value="">Todos</MenuItem>
                         {triggerOption.map((row) =>
-                            <MenuItem value={row}>{row}</MenuItem>
+                            <MenuItem key={row} value={row}>{row}</MenuItem>
                         )}
                     </Select>
-                    <Select value={channel} onChange={(event) => setChannel(event.target.value)} defaultValue={""} displayEmpty>
+                    <Select   value={channel} onChange={(event) => setChannel(event.target.value)} defaultValue={""} displayEmpty>
                         <MenuItem value="">Todos</MenuItem>
                         {channelOption.map((row) =>
-                            <MenuItem value={row}>{row}</MenuItem>
+                            <MenuItem key={row} value={row}>{row}</MenuItem>
                         )}
                     </Select>
 
