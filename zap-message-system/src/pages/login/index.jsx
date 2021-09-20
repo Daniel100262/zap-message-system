@@ -1,23 +1,17 @@
 import React from "react";
-import { Button, TextField, Grid, Paper, AppBar, Typography, Toolbar, Link } from "@material-ui/core";
+import { Button, TextField, Grid, Paper, Typography} from "@material-ui/core";
 import { useContext, useState } from 'react';
 import Swal from 'sweetalert2';
 import { useHistory } from "react-router-dom";
 import './styles.css'
 import StoreContext from "../../components/store/context";
 
-const initialState = () => {
-    return {
-        username: "", 
-        password: ""
-    }
-}
 
 const login = (username, password) => {
-    console.log(`Chegou no login com usuario: ${username} e senha: ${password}`)
     if(username === "admin" && password === "admin") {
         return { token: 1234}
     } else {
+        Swal.fire("Erro!", "Usuário ou senha incorretos!", "error")
         return { error: 'Usuário ou senha inválido!' }
     }
 }
@@ -26,17 +20,12 @@ const login = (username, password) => {
 const Login = () => {
 
     const history = useHistory();
-
-    const [value, setValue] = useState(initialState);
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const { setToken } = useContext(StoreContext);
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        
-        console.log("Chegou no handleSubmit")
-        console.log("Valor passado: "+value);
         const { token } = login(username, password);
 
         if(token) {
@@ -44,7 +33,8 @@ const Login = () => {
             return history.push("/dashboard")
         }
 
-        setValue(initialState);
+        setUsername("");
+        setPassword("");
 
     }
 
