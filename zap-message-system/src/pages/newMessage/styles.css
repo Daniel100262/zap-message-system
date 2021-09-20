@@ -6,10 +6,16 @@
     align-items: center;
 }
 
+#root {
+    background-color: #CCC;
+}
+
 .ContainerNewMessage {
     display: flex;
     flex-wrap: nowrap;
     flex-direction: column;
-    background-color: #CCC;
+    background-color: #FFF;
     align-items: center;
+    max-width: 50%;
+    margin-left: 25%;
 }
