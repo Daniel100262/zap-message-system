@@ -31,11 +31,6 @@ const DataTable = () => {
         history.push("/messages/new")
     }
 
-    const hangleGetChannelOptions = async () => {
-        const response = await api.get('/messages');
-
-    }
-
     const handleSubmit = async (event) => {
         event.preventDefault();
     
@@ -91,17 +86,17 @@ const DataTable = () => {
         <div className="TableCard" >
             <form onSubmit={handleSubmit}>
 
-            <Select value={trigger} onChange={(event) => setTrigger(event.target.value)} defaultValue={""} displayEmpty>
+            <Select value={trigger}  onChange={(event) => setTrigger(event.target.value)} defaultValue={""} displayEmpty>
                 <MenuItem value="">Todos</MenuItem>
                {triggerOption.map((row) =>
-                    <MenuItem value={row}>{row}</MenuItem>    
+                    <MenuItem key={row} value={row}>{row}</MenuItem>    
                 )}
             </Select>
 
-            <Select value={channel} onChange={(event) => setChannel(event.target.value)} defaultValue={""} displayEmpty>
+            <Select value={channel}  onChange={(event) => setChannel(event.target.value)} defaultValue={""} displayEmpty>
                 <MenuItem value="">Todos</MenuItem>
                {channelOption.map((row) =>
-                    <MenuItem value={row}>{row}</MenuItem>    
+                    <MenuItem key={row} value={row}>{row}</MenuItem>    
                 )}
             </Select>
 
