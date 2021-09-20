@@ -15,6 +15,9 @@ import Swal from 'sweetalert2';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import TextField from '@mui/material/TextField';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import Typography from '@mui/material/Typography';
+import InputLabel from '@mui/material/InputLabel';
 
 const DataTable = () => {
 
@@ -26,6 +29,19 @@ const DataTable = () => {
     const [channelOption, setChannelOption]  = useState([]);
 
     const history = useHistory();
+
+    const theme = createTheme();
+
+    theme.typography.h3 = {
+        fontSize: '1.2rem',
+        '@media (min-width:600px)': {
+            fontSize: '1.5rem',
+        },
+
+        [theme.breakpoints.up('md')]: {
+            fontSize: '2.4rem',
+        },
+    };
 
     const handleClickNewMessage = () => {
         history.push("/messages/new")
@@ -82,18 +98,24 @@ const DataTable = () => {
         handleGetTriggers();
     }, [])
 
+    
+
     return (
         <div className="TableCard" >
             <form onSubmit={handleSubmit}>
 
-            <Select value={trigger}  onChange={(event) => setTrigger(event.target.value)} defaultValue={""} displayEmpty>
+            <ThemeProvider theme={theme}>
+                <Typography variant="h3">Mensagens</Typography>
+            </ThemeProvider>
+
+            <Select value={trigger} label="Canal" onChange={(event) => setTrigger(event.target.value)} defaultValue={""} displayEmpty>
                 <MenuItem value="">Todos</MenuItem>
                {triggerOption.map((row) =>
                     <MenuItem key={row} value={row}>{row}</MenuItem>    
                 )}
             </Select>
 
-            <Select value={channel}  onChange={(event) => setChannel(event.target.value)} defaultValue={""} displayEmpty>
+            <Select value={channel} label="Gatilho" onChange={(event) => setChannel(event.target.value)} defaultValue={""} displayEmpty>
                 <MenuItem value="">Todos</MenuItem>
                {channelOption.map((row) =>
                     <MenuItem key={row} value={row}>{row}</MenuItem>    
@@ -101,7 +123,7 @@ const DataTable = () => {
             </Select>
 
 
-            <TextField value={timer} onChange={(event) => setTimer(event.target.value)} label="Tempo" variant="standard" />
+            <TextField value={timer} onChange={(event) => setTimer(event.target.value)} label="Tempo" variant="outlined" />
                 
             <Button onClick={handleSubmit}>Pesquisar</Button>
             </form>

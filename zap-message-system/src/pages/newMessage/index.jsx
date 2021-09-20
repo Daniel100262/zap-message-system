@@ -106,13 +106,11 @@ const NewMessage = () => {
                 <Button onClick={handleSubmit}>Cadastrar</Button>
                 <CardContent>
                     <Select value={trigger} onChange={(event) => setTrigger(event.target.value)} defaultValue={""} displayEmpty>
-                        <MenuItem value="">Todos</MenuItem>
                         {triggerOption.map((row) =>
                             <MenuItem key={row} value={row}>{row}</MenuItem>
                         )}
                     </Select>
                     <Select   value={channel} onChange={(event) => setChannel(event.target.value)} defaultValue={""} displayEmpty>
-                        <MenuItem value="">Todos</MenuItem>
                         {channelOption.map((row) =>
                             <MenuItem key={row} value={row}>{row}</MenuItem>
                         )}
